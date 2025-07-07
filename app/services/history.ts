@@ -1,5 +1,5 @@
 import axios from "axios"
-const baseUrl = 'http://localhost:4000/history'
+const baseUrl = '/history'
 
 const getHistory = (): Promise<any> => {
     return axios.get(`${baseUrl}`)

@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = 'http://localhost:4000/money';
+const baseUrl = '/money';
 
 const getMoney = (): Promise<any> => {
     return axios.get(`${baseUrl}`);
