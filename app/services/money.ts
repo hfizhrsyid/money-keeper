@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = '/money';
+const baseUrl = 'https://money-keeper-be.onrender.com/money';
 
 const getMoney = (): Promise<any> => {
     return axios.get(`${baseUrl}`);

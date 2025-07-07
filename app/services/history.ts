@@ -1,5 +1,5 @@
 import axios from "axios"
-const baseUrl = '/history'
+const baseUrl = 'https://money-keeper-be.onrender.com/history'
 
 const getHistory = (): Promise<any> => {
     return axios.get(`${baseUrl}`)
