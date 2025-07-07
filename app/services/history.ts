@@ -1,5 +1,5 @@
 import axios from "axios"
-const baseUrl = 'https://money-keeper-be.onrender.com/history'
+const baseUrl = `${import.meta.env.VITE_API_URL as string}/history`;
 
 const getHistory = (): Promise<any> => {
     return axios.get(`${baseUrl}`)
