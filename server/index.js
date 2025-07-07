@@ -4,6 +4,7 @@ const app = express()
 
 app.use(cors())
 app.use(express.json())
+app.use(express.static('build'))
 
 let money = 0;
 let history = [{
@@ -11,6 +12,10 @@ let history = [{
     "name": "hello",
     "money": 100000
 }]
+
+app.get('/', (req, res) => {
+    res.send('Working')
+})
 
 app.get('/money', (req, res) => {
     res.json({ money })
