@@ -11,7 +11,7 @@ type historyProps = {
 
 const TransactionList = ({ id, name, money, date }: Transaction) => {
     return (
-        <div className="bg-gray-100 rounded-sm border-0.5 border-green-100 flex justify-between p-2">
+        <div className="bg-gray-100 rounded-sm border-0.5 border-green-100 flex justify-between p-2 my-1">
             <div className="flex-row">
                 <h2 className="text-green-950 text-2xl">{name}</h2>
                 <p>{date}</p>

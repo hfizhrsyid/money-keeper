@@ -48,7 +48,7 @@ function Money() {
     }
 
     return (
-        <div className="justify-center flex-row">
+        <div className="justify-center flex-row mt-1">
             <div className="text-center text-6xl gap-96">
                 <h3 className="text-4xl">Money owed by</h3>
                 <h1>Rp{money.toLocaleString("id-ID")}</h1>

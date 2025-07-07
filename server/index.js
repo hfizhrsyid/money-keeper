@@ -11,13 +11,13 @@ let history = [{
         id: 0,
         "name": "hello",
         "money": 100000,
-        "date": "20/01/2020"
+        "date": "Mon, 06 Jul 2025 09:37:28 GMT"
     },
     {
         id: 1,
         "name": "haha",
         "money": 1000,
-        "date": "21/01/2020"
+        "date": "Mon, 07 Jul 2025 09:37:28 GMT"
     }
 ]
 
@@ -57,7 +57,7 @@ app.post('/history', (req, res) => {
         id: generateId(),
         name: req.body.name,
         money: req.body.money,
-        date: new Date().toISOString()
+        date: new Date().toUTCString()
     }
 
     history = history.concat(newTransaction)
