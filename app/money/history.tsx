@@ -1,4 +1,5 @@
 type Transaction = {
+    key: number,
     id: number,
     name: string,
     money: number,
@@ -23,19 +24,21 @@ const TransactionList = ({ id, name, money, date }: Transaction) => {
     )
 }
 
-const BlockOfTransaction =({ newHistory }: historyProps) => {
-    return (
-        <div className="h-128 overflow-y-auto">
-            {newHistory.map(his => <TransactionList key={his.id} id={his.id} name={his.name} money={his.money} date={his.date} />)}
-        </div>
-    )
-}
+// const BlockOfTransaction =({ newHistory }: historyProps) => {
+//     return (
+//         <div className="h-128 overflow-y-auto">
+//             {newHistory.map(his => <TransactionList key={his.id} id={his.id} name={his.name} money={his.money} date={his.date} />)}
+//         </div>
+//     )
+// }
 
 const History = ({ newHistory }: historyProps)  => {
     return (
         <div className="my-10 flex-row max-w-120 mx-auto">
             <h2 className="font-bold text-2xl">History</h2>
-            <BlockOfTransaction newHistory={newHistory} />
+             <div className="h-128 overflow-y-auto">
+                {newHistory.map(his => <TransactionList key={his.id} id={his.id} name={his.name} money={his.money} date={his.date} />)}
+            </div>
         </div>
     )
 }

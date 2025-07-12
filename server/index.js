@@ -1,20 +1,23 @@
+require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
+const morgan = require('morgan')
 const app = express()
+const History = require('./models/history')
 
 app.use(cors())
 app.use(express.json())
-app.use(express.static('build'))
+morgan.token('data', (req) => JSON.stringify(req.body))
+
+app.use(morgan(':method :url :status : res[content-length] - :response-time ms :data'))
 
 let money = 0;
 let history = [{
-        id: 0,
         "name": "hello",
         "money": 100000,
         "date": "Mon, 06 Jul 2025 09:37:28 GMT"
     },
     {
-        id: 1,
         "name": "haha",
         "money": 1000,
         "date": "Mon, 07 Jul 2025 09:37:28 GMT"
@@ -35,7 +38,9 @@ app.post('/money', (req, res) => {
 })
 
 app.get('/history', (req, res) => {
-    res.json({ history })
+    History.find({}).then(result => {
+        res.json(result)
+    })
 })
 
 app.get('/history/:id', (req, res) => {
@@ -53,15 +58,18 @@ const generateId = () => {
 }
 
 app.post('/history', (req, res) => {
-    const newTransaction = {
-        id: generateId(),
+    const newTransaction = new History({
         name: req.body.name,
         money: req.body.money,
         date: new Date().toUTCString()
-    }
+    })
 
-    history = history.concat(newTransaction)
-    res.json({ history })
+    newTransaction
+        .save()
+        .then(result => {
+            res.json(newTransaction)
+        })
+        .catch(error => console.log(error.message))
 })
 
 app.delete('/history/:id', (req, res) => {

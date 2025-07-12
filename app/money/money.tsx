@@ -12,16 +12,14 @@ function Money() {
     const [history, setHistory] = useState([])
     
     useEffect(() => {
-        moneyService.getMoney().then(response => {
-            console.log(response.data.money)
-            setMoney(response.data.money)
+        historyService.getHistory().then(res => {
+            console.log(res.data)
+            setHistory(res.data)
+            
+            const totalMoney = res.data.reduce((accumulator: number, item: any) => accumulator + item.money, 0)
+            setMoney(totalMoney);
         })
 
-        historyService.getHistory().then(res => {
-            console.log(res.data.history)
-            setHistory(res.data.history)
-            console.log(history)
-        })
     }, [])
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +39,7 @@ function Money() {
             }) 
 
             historyService.postTransaction("hafizh", num).then(res => {
-                setHistory(res.data.history)
+                setHistory(history.concat(res.data))
             })
         }
         setInputValue("");
