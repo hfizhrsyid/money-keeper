@@ -30,7 +30,9 @@ function Money() {
     }, [history])
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setInputValue(event.target.value);
+        // Remove all non-digits
+        const rawValue = event.target.value.replace(/\D/g, "");
+        setInputValue(rawValue);
     }
 
     const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -84,6 +86,7 @@ function Money() {
                         inputValue={inputValue}
                         handleChange={handleChange}
                         handleNameChange={handleNameChange}
+                        setNameValue={setNameValue}
                     />
                     </div>
                 </div>
