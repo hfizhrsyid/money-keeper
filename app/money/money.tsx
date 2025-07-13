@@ -6,8 +6,9 @@ import moneyService from "../services/money";
 import historyService from "../services/history";
 
 function Money() {
-    const [money, setMoney] = useState(0);
-    const [inputValue, setInputValue] = useState("");
+    const [money, setMoney] = useState(0)
+    const [nameValue, setNameValue] = useState("")
+    const [inputValue, setInputValue] = useState("")
     const [showTransaction, setShowTransaction] = useState(false)
     const [history, setHistory] = useState([])
     
@@ -26,19 +27,20 @@ function Money() {
         setInputValue(event.target.value);
     }
 
+    const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setNameValue(event.target.value)
+    }
+
     const handleClick = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const num = Number(inputValue);
+        const name = nameValue;
         if (isNaN(num)) {
             window.alert('Number contains a string!');
         } else if (num === 0) {
             window.alert('Number is 0');
         } else {
-            moneyService.postMoney(money + num).then(response => {
-                setMoney(response.data.money)
-            }) 
-
-            historyService.postTransaction("hafizh", num).then(res => {
+            historyService.postTransaction(name, num).then(res => {
                 setHistory(history.concat(res.data))
             })
         }
@@ -67,8 +69,10 @@ function Money() {
                     </button>
                     <Transaction
                         handleClick={handleClick}
+                        nameValue={nameValue}
                         inputValue={inputValue}
                         handleChange={handleChange}
+                        handleNameChange={handleNameChange}
                     />
                     </div>
                 </div>
