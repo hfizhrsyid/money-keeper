@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import History from "./history";
 import InputMoney from "./inputMoney";
 import Transaction from "./transaction";
@@ -16,12 +16,18 @@ function Money() {
         historyService.getHistory().then(res => {
             console.log(res.data)
             setHistory(res.data)
-            
-            const totalMoney = res.data.reduce((accumulator: number, item: any) => accumulator + item.money, 0)
-            setMoney(totalMoney);
         })
-
+        .catch(err => {
+            console.error(err);
+            alert('Failed to fetch history.');
+        });
+        
     }, [])
+
+    useEffect(() => {
+        const totalMoney = history.reduce((accumulator: number, item: any) => accumulator + Number(item.money), 0)
+        setMoney(totalMoney);
+    }, [history])
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(event.target.value);
@@ -40,9 +46,14 @@ function Money() {
         } else if (num === 0) {
             window.alert('Number is 0');
         } else {
-            historyService.postTransaction(name, num).then(res => {
-                setHistory(history.concat(res.data))
-            })
+            historyService.postTransaction(name, num)
+                .then(res => {
+                    setHistory(prevHistory => prevHistory.concat(res.data));
+                })
+                .catch(error => {
+                    console.log(error.message)
+                    alert('Failed to post Transaction')
+                })
         }
         setInputValue("");
     }

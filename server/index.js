@@ -6,6 +6,11 @@ const app = express()
 const History = require('./models/history')
 
 app.use(cors())
+
+app.use(cors({
+  origin: 'https://money-keeper-fe.onrender.com'
+}));
+
 app.use(express.json())
 morgan.token('data', (req) => JSON.stringify(req.body))
 
