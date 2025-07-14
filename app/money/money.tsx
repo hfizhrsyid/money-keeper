@@ -49,10 +49,10 @@ function Money() {
             window.alert('Number is 0');
         } else {
             historyService.postTransaction(name, num)
-                .then(res => {
+                .then((res: any) => {
                     setHistory(prevHistory => prevHistory.concat(res.data));
                 })
-                .catch(error => {
+                .catch((error: any) => {
                     console.log(error.message)
                     alert('Failed to post Transaction')
                 })

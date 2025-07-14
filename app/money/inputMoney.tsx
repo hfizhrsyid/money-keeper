@@ -94,7 +94,7 @@ const InputMoney = ({ handleClick, nameValue, inputValue, handleChange, handleNa
                 onChange={handleNameSelect}
             />
 
-            <TypeOfTransaction />
+            {/* <TypeOfTransaction /> */}
 
             <p>Masukkan Uang</p>
             <div className="relative w-full max-w-xs">
