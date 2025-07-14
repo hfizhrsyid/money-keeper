@@ -9,20 +9,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 morgan.token('data', (req) => JSON.stringify(req.body));
-app.use(morgan(':method :url :status :res[content-length] - :response-time ms :data'));
-
-// Example money variable (fix: declare it!)
-let money = 0;
-
-// Money routes
-app.get('/money', (req, res) => {
-  res.json({ money });
-});
-
-app.post('/money', (req, res) => {
-  money = req.body.money;
-  res.json({ money });
-});
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :data'))
 
 // History routes
 app.get('/history', (req, res) => {
@@ -64,14 +51,13 @@ app.use(express.static(path.join(__dirname, 'build/client')));
 // React Router SSR fallback
 app.all('*', async (req, res, next) => {
   try {
-    const node = await import('@react-router/node');
-    console.log('Node module:', node);
+    const express = await import('@react-router/express');
 
-    const { createRequestListener } = node;
+    const { createRequestHandler } = express;
 
     const build = await import('./build/server/index.js');
 
-    const handler = createRequestListener({
+    const handler = createRequestHandler({
         build,
         getLoadContext(req, res) {
             return { req, res };
@@ -84,9 +70,8 @@ app.all('*', async (req, res, next) => {
   }
 });
 
-
 // Start server
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
-  console.log(`✅ Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });

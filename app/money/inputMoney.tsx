@@ -31,45 +31,63 @@ const SegmentedToggle = ({
   }, [selected, optionA, optionB, onChange]);
 
   return (
-    <div className="relative inline-flex border rounded-full bg-gray-200 p-1">
-      {/* Sliding highlight */}
-      <span
-        className="absolute top-1 bottom-1 rounded-full bg-white shadow transition-all duration-300"
-        style={highlightStyle}
-      ></span>
+    <div>
+      <p>Nama: </p>
+      <div className="relative inline-flex border rounded-full bg-gray-200 p-1">
+        {/* Sliding highlight */}
+        <span
+          className="absolute top-1 bottom-1 rounded-full bg-white shadow transition-all duration-300"
+          style={highlightStyle}
+        ></span>
 
-      <button
-        type="button"
-        ref={optionARef}
-        onClick={() => setSelected(optionA)}
-        className={`relative z-10 px-4 py-1 rounded-full transition-colors duration-300 ${
-          selected === optionA ? "text-blue-900" : "text-gray-500"
-        }`}
-      >
-        {optionA}
-      </button>
+        <button
+          type="button"
+          ref={optionARef}
+          onClick={() => setSelected(optionA)}
+          className={`relative z-10 px-4 py-1 rounded-full transition-colors duration-300 ${
+            selected === optionA ? "text-blue-900" : "text-gray-500"
+          }`}
+        >
+          {optionA}
+        </button>
 
-      <button
-        type="button"
-        ref={optionBRef}
-        onClick={() => setSelected(optionB)}
-        className={`relative z-10 px-4 py-1 rounded-full transition-colors duration-300 ${
-          selected === optionB ? "text-pink-700" : "text-gray-500"
-        }`}
-      >
-        {optionB}
-      </button>
+        <button
+          type="button"
+          ref={optionBRef}
+          onClick={() => setSelected(optionB)}
+          className={`relative z-10 px-4 py-1 rounded-full transition-colors duration-300 ${
+            selected === optionB ? "text-pink-700" : "text-gray-500"
+          }`}
+        >
+          {optionB}
+        </button>
+      </div>
     </div>
   );
 }
 
-// const TypeOfTransaction = () => {
-//   return (
-//     <div className="relative inline-flex border rounded-full bg-gray-200 p-1">
-//       <span className="absolute top-1 bottom-1 rounded-full bg-white shadow transition-all duration-300"></span>
-//     </div>
-//   )
-// }
+const TypeOfTransaction = () => {
+  return (
+    <div>
+      <p>Tipe transaksi</p>
+      <div className="relative inline-flex border rounded-full bg-gray-200 p-1">
+        <span className="absolute top-1 bottom-1 rounded-full bg-white shadow transition-all duration-300"></span>
+        <button
+          type="button"
+          className={`relative z-10 px-4 py-1 rounded-full transition-colors duration-300`}
+        >
+          Borrow
+        </button>
+        <button
+          type="button"
+          className={`relative z-10 px-4 py-1 rounded-full transition-colors duration-300`}
+        >
+          Pay
+        </button>
+      </div>
+    </div>
+  )
+}
 
 
 type InputMoneyProps = {
@@ -85,7 +103,6 @@ const InputMoney = ({ handleClick, nameValue, inputValue, handleChange, handleNa
     const formatted = new Intl.NumberFormat("id-ID").format(Number(inputValue || 0));
     return (
         <form onSubmit={handleClick} className="flex-row justify-center align-items">
-            <h1>Sebagai siapakah anda?</h1>
             {/* <input value={nameValue} type="text" onChange={handleNameChange} className="text-2xl" /> */}
             
             <SegmentedToggle
