@@ -14,8 +14,8 @@ function Money() {
     
     useEffect(() => {
         historyService.getHistory().then(res => {
-            console.log(res.data)
-            setHistory(res.data)
+            console.log(res)
+            setHistory(res)
         })
         .catch(err => {
             console.error(err);
