@@ -144,8 +144,8 @@ const SegmentedToggle = ({
     }
     if (onChange) onChange(selected);
   }, [selected, optionA, optionB, onChange]);
-  return /* @__PURE__ */ jsxs("div", { children: [
-    /* @__PURE__ */ jsx("p", { children: "Nama: " }),
+  return /* @__PURE__ */ jsxs("div", { className: "my-2", children: [
+    /* @__PURE__ */ jsx("p", { className: "my-2", children: "Nama: " }),
     /* @__PURE__ */ jsxs("div", { className: "relative inline-flex border rounded-full bg-gray-200 p-1", children: [
       /* @__PURE__ */ jsx(
         "span",
@@ -179,7 +179,7 @@ const SegmentedToggle = ({
 };
 const InputMoney = ({ handleClick, nameValue, inputValue, handleChange, handleNameChange, handleNameSelect, handleBorrow, isBorrow }) => {
   const formatted = new Intl.NumberFormat("id-ID").format(Number(inputValue || 0));
-  return /* @__PURE__ */ jsxs("form", { onSubmit: handleClick, className: "flex-row justify-center align-items gap-1", children: [
+  return /* @__PURE__ */ jsxs("form", { onSubmit: handleClick, className: "flex-row justify-center align-items", children: [
     /* @__PURE__ */ jsx(
       SegmentedToggle,
       {
@@ -188,9 +188,9 @@ const InputMoney = ({ handleClick, nameValue, inputValue, handleChange, handleNa
         onChange: handleNameSelect
       }
     ),
-    /* @__PURE__ */ jsx("button", { type: "button", className: "bg-green-200 p-2 rounded-md btn text-green-800 border-green-800 text-xl", onClick: handleBorrow, children: isBorrow === true ? "Borrow" : "Pay" }),
-    /* @__PURE__ */ jsx("p", { children: "Masukkan Uang" }),
-    /* @__PURE__ */ jsxs("div", { className: "relative w-full max-w-xs", children: [
+    /* @__PURE__ */ jsx("button", { type: "button", className: "bg-green-200 p-2 rounded-md btn text-green-800 border-green-800 text-xl my-4", onClick: handleBorrow, children: isBorrow === true ? "Borrow" : "Pay" }),
+    /* @__PURE__ */ jsx("p", { className: "mt-2", children: "Masukkan Uang" }),
+    /* @__PURE__ */ jsxs("div", { className: "relative w-full max-w-xs mb-4", children: [
       /* @__PURE__ */ jsx("span", { className: "absolute left-3 top-1/2 -translate-y-1/2 text-gray-500", children: "Rp" }),
       /* @__PURE__ */ jsx(
         "input",
@@ -207,9 +207,9 @@ const InputMoney = ({ handleClick, nameValue, inputValue, handleChange, handleNa
   ] });
 };
 const Transaction = ({ handleClick, nameValue, inputValue, handleChange, handleNameChange, setNameValue, handleBorrow, isBorrow }) => {
-  return /* @__PURE__ */ jsx("div", { className: "text-center", children: /* @__PURE__ */ jsx(InputMoney, { handleClick, nameValue, inputValue, handleChange, handleNameChange, handleNameSelect: setNameValue, handleBorrow, isBorrow }) });
+  return /* @__PURE__ */ jsx("div", { className: "text-center flex-row", children: /* @__PURE__ */ jsx(InputMoney, { handleClick, nameValue, inputValue, handleChange, handleNameChange, handleNameSelect: setNameValue, handleBorrow, isBorrow }) });
 };
-const baseUrl = `${"http://localhost:4000"}/history`;
+const baseUrl = `${"/"}/history`;
 const getHistory = () => {
   return axios.get(`${baseUrl}`);
 };
@@ -226,8 +226,8 @@ function Money() {
   const [isBorrow, setIsBorrow] = useState(false);
   useEffect(() => {
     historyService.getHistory().then((res) => {
-      console.log(res.data);
-      setHistory(res.data);
+      console.log(res);
+      setHistory(res);
     }).catch((err) => {
       console.error(err);
       alert("Failed to fetch history.");
@@ -322,7 +322,7 @@ const route1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProper
   default: home,
   meta
 }, Symbol.toStringTag, { value: "Module" }));
-const serverManifest = { "entry": { "module": "/assets/entry.client-WabgBupn.js", "imports": ["/assets/chunk-QMGIS6GS-hoMvXFpG.js"], "css": [] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": true, "module": "/assets/root-D8TfE8iq.js", "imports": ["/assets/chunk-QMGIS6GS-hoMvXFpG.js"], "css": ["/assets/root-DwLaaVeH.css"], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 }, "routes/home": { "id": "routes/home", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": false, "module": "/assets/home-aF36iw-C.js", "imports": ["/assets/chunk-QMGIS6GS-hoMvXFpG.js"], "css": [], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 } }, "url": "/assets/manifest-2fda3dc1.js", "version": "2fda3dc1", "sri": void 0 };
+const serverManifest = { "entry": { "module": "/assets/entry.client-WabgBupn.js", "imports": ["/assets/chunk-QMGIS6GS-hoMvXFpG.js"], "css": [] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": true, "module": "/assets/root-tqRCSlaf.js", "imports": ["/assets/chunk-QMGIS6GS-hoMvXFpG.js"], "css": ["/assets/root-B6cGzfgh.css"], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 }, "routes/home": { "id": "routes/home", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": false, "module": "/assets/home-8OVeUQH0.js", "imports": ["/assets/chunk-QMGIS6GS-hoMvXFpG.js"], "css": [], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 } }, "url": "/assets/manifest-86ed0c87.js", "version": "86ed0c87", "sri": void 0 };
 const assetsBuildDirectory = "build\\client";
 const basename = "/";
 const future = { "unstable_middleware": false, "unstable_optimizeDeps": false, "unstable_splitRouteModules": false, "unstable_subResourceIntegrity": false, "unstable_viteEnvironmentApi": false };
