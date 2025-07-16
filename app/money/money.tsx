@@ -64,10 +64,6 @@ function Money() {
         }
         setInputValue("");
     }
-
-    const handleBorrow = () => {
-        setIsBorrow(!isBorrow)
-    }
     
     return (
         <div className="justify-center text-center flex-row mt-1">
@@ -96,7 +92,7 @@ function Money() {
                         handleChange={handleChange}
                         handleNameChange={handleNameChange}
                         setNameValue={setNameValue}
-                        handleBorrow={handleBorrow}
+                        setIsBorrow={setIsBorrow}
                         isBorrow={isBorrow}
                     />
                     </div>

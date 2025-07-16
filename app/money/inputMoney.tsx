@@ -97,11 +97,11 @@ type InputMoneyProps = {
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleNameSelect: (value: string) => void;
-  handleBorrow: () => void;
+  setIsBorrow: (value: boolean) => void;
   isBorrow: boolean;
 };
 
-const InputMoney = ({ handleClick, nameValue, inputValue, handleChange, handleNameChange, handleNameSelect, handleBorrow, isBorrow }: InputMoneyProps) => {
+const InputMoney = ({ handleClick, nameValue, inputValue, handleChange, handleNameChange, handleNameSelect, setIsBorrow, isBorrow }: InputMoneyProps) => {
     const formatted = new Intl.NumberFormat("id-ID").format(Number(inputValue || 0));
     return (
         <form onSubmit={handleClick} className="flex-row justify-center align-items">
@@ -114,8 +114,14 @@ const InputMoney = ({ handleClick, nameValue, inputValue, handleChange, handleNa
             />
 
             {/* <TypeOfTransaction /> */}
-            <button type="button" className="bg-green-200 p-2 rounded-md btn text-green-800 border-green-800 text-xl my-4" onClick={handleBorrow}>{isBorrow === true ? "Borrow" : "Pay"}</button>
-
+            {/* <button type="button" className="bg-green-200 p-2 rounded-md btn text-green-800 border-green-800 text-xl my-4" onClick={handleBorrow}>{isBorrow === true ? "Borrow" : "Pay"}</button> */}
+            <div className="dropdown dropdown-start">
+              <div tabIndex={0} role="button" className="btn bg-green-200 text-green-800 m-1">{isBorrow === true ? "Borrow" : "Pay"}</div>
+              <ul tabIndex={0} className="dropdown-content menu bg-green-300 text-green-800 rounded-md rounded-box z-1 w-26 p-2 shadow-sm">
+                <li><button type="button" onClick={() => setIsBorrow(true)}>Borrow</button></li>
+                <li><button type="button" onClick={() => setIsBorrow(false)}>Pay</button></li>
+              </ul>
+            </div>
             <p className="mt-2">Masukkan Uang</p>
             <div className="relative w-full max-w-xs mb-4">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">

@@ -177,7 +177,7 @@ const SegmentedToggle = ({
     ] })
   ] });
 };
-const InputMoney = ({ handleClick, nameValue, inputValue, handleChange, handleNameChange, handleNameSelect, handleBorrow, isBorrow }) => {
+const InputMoney = ({ handleClick, nameValue, inputValue, handleChange, handleNameChange, handleNameSelect, setIsBorrow, isBorrow }) => {
   const formatted = new Intl.NumberFormat("id-ID").format(Number(inputValue || 0));
   return /* @__PURE__ */ jsxs("form", { onSubmit: handleClick, className: "flex-row justify-center align-items", children: [
     /* @__PURE__ */ jsx(
@@ -188,7 +188,13 @@ const InputMoney = ({ handleClick, nameValue, inputValue, handleChange, handleNa
         onChange: handleNameSelect
       }
     ),
-    /* @__PURE__ */ jsx("button", { type: "button", className: "bg-green-200 p-2 rounded-md btn text-green-800 border-green-800 text-xl my-4", onClick: handleBorrow, children: isBorrow === true ? "Borrow" : "Pay" }),
+    /* @__PURE__ */ jsxs("div", { className: "dropdown dropdown-start", children: [
+      /* @__PURE__ */ jsx("div", { tabIndex: 0, role: "button", className: "btn bg-green-200 text-green-800 m-1", children: isBorrow === true ? "Borrow" : "Pay" }),
+      /* @__PURE__ */ jsxs("ul", { tabIndex: 0, className: "dropdown-content menu bg-green-300 text-green-800 rounded-md rounded-box z-1 w-26 p-2 shadow-sm", children: [
+        /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { type: "button", onClick: () => setIsBorrow(true), children: "Borrow" }) }),
+        /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx("button", { type: "button", onClick: () => setIsBorrow(false), children: "Pay" }) })
+      ] })
+    ] }),
     /* @__PURE__ */ jsx("p", { className: "mt-2", children: "Masukkan Uang" }),
     /* @__PURE__ */ jsxs("div", { className: "relative w-full max-w-xs mb-4", children: [
       /* @__PURE__ */ jsx("span", { className: "absolute left-3 top-1/2 -translate-y-1/2 text-gray-500", children: "Rp" }),
@@ -206,8 +212,8 @@ const InputMoney = ({ handleClick, nameValue, inputValue, handleChange, handleNa
     /* @__PURE__ */ jsx("button", { type: "submit", className: "bg-green-200 p-2 rounded-md btn text-green-800 border-green-800 text-xl", children: "Press" })
   ] });
 };
-const Transaction = ({ handleClick, nameValue, inputValue, handleChange, handleNameChange, setNameValue, handleBorrow, isBorrow }) => {
-  return /* @__PURE__ */ jsx("div", { className: "text-center flex-row", children: /* @__PURE__ */ jsx(InputMoney, { handleClick, nameValue, inputValue, handleChange, handleNameChange, handleNameSelect: setNameValue, handleBorrow, isBorrow }) });
+const Transaction = ({ handleClick, nameValue, inputValue, handleChange, handleNameChange, setNameValue, setIsBorrow, isBorrow }) => {
+  return /* @__PURE__ */ jsx("div", { className: "text-center flex-row", children: /* @__PURE__ */ jsx(InputMoney, { handleClick, nameValue, inputValue, handleChange, handleNameChange, handleNameSelect: setNameValue, setIsBorrow, isBorrow }) });
 };
 const baseUrl = `${"https://money-keeper-be.onrender.com"}/history`;
 const getHistory = () => {
@@ -266,9 +272,6 @@ function Money() {
     }
     setInputValue("");
   };
-  const handleBorrow = () => {
-    setIsBorrow(!isBorrow);
-  };
   return /* @__PURE__ */ jsxs("div", { className: "justify-center text-center flex-row mt-1", children: [
     /* @__PURE__ */ jsxs("div", { className: "text-center text-6xl gap-64", children: [
       /* @__PURE__ */ jsx("h3", { className: "text-4xl", children: "Money owed by" }),
@@ -296,7 +299,7 @@ function Money() {
           handleChange,
           handleNameChange,
           setNameValue,
-          handleBorrow,
+          setIsBorrow,
           isBorrow
         }
       )
@@ -322,7 +325,7 @@ const route1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProper
   default: home,
   meta
 }, Symbol.toStringTag, { value: "Module" }));
-const serverManifest = { "entry": { "module": "/assets/entry.client-WabgBupn.js", "imports": ["/assets/chunk-QMGIS6GS-hoMvXFpG.js"], "css": [] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": true, "module": "/assets/root-tqRCSlaf.js", "imports": ["/assets/chunk-QMGIS6GS-hoMvXFpG.js"], "css": ["/assets/root-B6cGzfgh.css"], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 }, "routes/home": { "id": "routes/home", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": false, "module": "/assets/home-D6CYDPu5.js", "imports": ["/assets/chunk-QMGIS6GS-hoMvXFpG.js"], "css": [], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 } }, "url": "/assets/manifest-41ca40ba.js", "version": "41ca40ba", "sri": void 0 };
+const serverManifest = { "entry": { "module": "/assets/entry.client-WabgBupn.js", "imports": ["/assets/chunk-QMGIS6GS-hoMvXFpG.js"], "css": [] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": true, "module": "/assets/root-DgYYK5ca.js", "imports": ["/assets/chunk-QMGIS6GS-hoMvXFpG.js"], "css": ["/assets/root-ORyfRZpj.css"], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 }, "routes/home": { "id": "routes/home", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": false, "module": "/assets/home-BtpfwF51.js", "imports": ["/assets/chunk-QMGIS6GS-hoMvXFpG.js"], "css": [], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 } }, "url": "/assets/manifest-57f30929.js", "version": "57f30929", "sri": void 0 };
 const assetsBuildDirectory = "build\\client";
 const basename = "/";
 const future = { "unstable_middleware": false, "unstable_optimizeDeps": false, "unstable_splitRouteModules": false, "unstable_subResourceIntegrity": false, "unstable_viteEnvironmentApi": false };
