@@ -14,6 +14,7 @@ app.use(morgan(':method :url :status :res[content-length] - :response-time ms :d
 // History routes
 app.get('/history', (req, res) => {
   History.find({})
+    .sort({ date: -1})
     .then(result => res.json(result))
     .catch(error => res.status(500).json({ error: error.message }));
 });

@@ -31,8 +31,8 @@ const SegmentedToggle = ({
   }, [selected, optionA, optionB, onChange]);
 
   return (
-    <div>
-      <p>Nama: </p>
+    <div className="my-2">
+      <p className="my-2">Nama: </p>
       <div className="relative inline-flex border rounded-full bg-gray-200 p-1">
         {/* Sliding highlight */}
         <span
@@ -97,9 +97,11 @@ type InputMoneyProps = {
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleNameSelect: (value: string) => void;
+  handleBorrow: () => void;
+  isBorrow: boolean;
 };
 
-const InputMoney = ({ handleClick, nameValue, inputValue, handleChange, handleNameChange, handleNameSelect }: InputMoneyProps) => {
+const InputMoney = ({ handleClick, nameValue, inputValue, handleChange, handleNameChange, handleNameSelect, handleBorrow, isBorrow }: InputMoneyProps) => {
     const formatted = new Intl.NumberFormat("id-ID").format(Number(inputValue || 0));
     return (
         <form onSubmit={handleClick} className="flex-row justify-center align-items">
@@ -112,22 +114,23 @@ const InputMoney = ({ handleClick, nameValue, inputValue, handleChange, handleNa
             />
 
             {/* <TypeOfTransaction /> */}
+            <button type="button" className="bg-green-200 p-2 rounded-md btn text-green-800 border-green-800 text-xl my-4" onClick={handleBorrow}>{isBorrow === true ? "Borrow" : "Pay"}</button>
 
-            <p>Masukkan Uang</p>
-            <div className="relative w-full max-w-xs">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
-                Rp
-            </span>
-            <input
-                value={formatted}
-                type="text"
-                onChange={handleChange}
-                className="pl-10 pr-4 py-2 w-full text-2xl rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="0"
-            />
+            <p className="mt-2">Masukkan Uang</p>
+            <div className="relative w-full max-w-xs mb-4">
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
+                  Rp
+              </span>
+              <input
+                  value={formatted}
+                  type="text"
+                  onChange={handleChange}
+                  className="pl-10 pr-4 py-2 w-full text-2xl rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="0"
+              />
             </div>
 
-            <button type="submit" className="btn">Press</button>
+            <button type="submit" className="bg-green-200 p-2 rounded-md btn text-green-800 border-green-800 text-xl">Press</button>
         </form>
     )
 }

@@ -11,6 +11,7 @@ function Money() {
     const [inputValue, setInputValue] = useState("")
     const [showTransaction, setShowTransaction] = useState(false)
     const [history, setHistory] = useState([])
+    const [isBorrow, setIsBorrow] = useState(false)
     
     useEffect(() => {
         historyService.getHistory().then(res => {
@@ -21,7 +22,7 @@ function Money() {
             console.error(err);
             alert('Failed to fetch history.');
         });
-        
+        console.log(isBorrow)
     }, [])
 
     useEffect(() => {
@@ -41,7 +42,12 @@ function Money() {
 
     const handleClick = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const num = Number(inputValue);
+        let num = Number(inputValue)
+        
+        if(isBorrow) {
+            num = Number(inputValue) * -1
+        }
+
         const name = nameValue;
         if (isNaN(num)) {
             window.alert('Number contains a string!');
@@ -60,9 +66,13 @@ function Money() {
         setInputValue("");
     }
 
+    const handleBorrow = () => {
+        setIsBorrow(!isBorrow)
+    }
+    
     return (
-        <div className="justify-center flex-row mt-1">
-            <div className="text-center text-6xl gap-96">
+        <div className="justify-center text-center flex-row mt-1">
+            <div className="text-center text-6xl gap-64">
                 <h3 className="text-4xl">Money owed by</h3>
                 <h1>Rp{money.toLocaleString("id-ID")}</h1>
             </div>
@@ -87,6 +97,8 @@ function Money() {
                         handleChange={handleChange}
                         handleNameChange={handleNameChange}
                         setNameValue={setNameValue}
+                        handleBorrow={handleBorrow}
+                        isBorrow={isBorrow}
                     />
                     </div>
                 </div>
