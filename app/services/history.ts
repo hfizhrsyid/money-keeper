@@ -1,5 +1,5 @@
 import axios from "axios"
-const baseUrl = `${import.meta.env.BASE_URL as string}/history`;
+const baseUrl = `${import.meta.env.VITE_BASE_URL}/history`;
 
 const getHistory = (): Promise<any> => {
     return axios.get(`${baseUrl}`)
