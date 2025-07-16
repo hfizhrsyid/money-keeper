@@ -2,7 +2,6 @@ import React, { use, useEffect, useState } from "react";
 import History from "./history";
 import InputMoney from "./inputMoney";
 import Transaction from "./transaction";
-import moneyService from "../services/money";
 import historyService from "../services/history";
 
 function Money() {
