@@ -215,14 +215,22 @@ const InputMoney = ({ handleClick, nameValue, inputValue, handleChange, handleNa
 const Transaction = ({ handleClick, nameValue, inputValue, handleChange, handleNameChange, setNameValue, setIsBorrow, isBorrow }) => {
   return /* @__PURE__ */ jsx("div", { className: "text-center flex-row", children: /* @__PURE__ */ jsx(InputMoney, { handleClick, nameValue, inputValue, handleChange, handleNameChange, handleNameSelect: setNameValue, setIsBorrow, isBorrow }) });
 };
-const baseUrl = `${"https://money-keeper-be.onrender.com"}/history`;
+const baseUrl$1 = `${"http://localhost:4000"}/history`;
 const getHistory = () => {
-  return axios.get(`${baseUrl}`);
+  return axios.get(`${baseUrl$1}`);
 };
 const postTransaction = (name, money) => {
-  return axios.post(`${baseUrl}`, { name, money });
+  return axios.post(`${baseUrl$1}`, { name, money });
 };
 const historyService = { getHistory, postTransaction };
+const baseUrl = `${"http://localhost:4000"}/people`;
+const getPerson = () => {
+  return axios.get(`${baseUrl}`);
+};
+const postPerson = (personObject) => {
+  return axios.post(`${baseUrl}`, personObject);
+};
+const personService = { getPerson, postPerson };
 function Money() {
   const [money, setMoney] = useState(0);
   const [nameValue, setNameValue] = useState("");
@@ -230,6 +238,7 @@ function Money() {
   const [showTransaction, setShowTransaction] = useState(false);
   const [history, setHistory] = useState([]);
   const [isBorrow, setIsBorrow] = useState(false);
+  const [person, setPerson] = useState([]);
   useEffect(() => {
     historyService.getHistory().then((res) => {
       console.log(res.data);
@@ -238,7 +247,12 @@ function Money() {
       console.error(err);
       alert("Failed to fetch history.");
     });
-    console.log(isBorrow);
+    personService.getPerson().then((res) => {
+      setPerson(res.data);
+    }).catch((err) => {
+      console.log(err.message);
+      alert("Failed to fetch person");
+    });
   }, []);
   useEffect(() => {
     const totalMoney = history.reduce((accumulator, item) => accumulator + Number(item.money), 0);
@@ -325,7 +339,7 @@ const route1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProper
   default: home,
   meta
 }, Symbol.toStringTag, { value: "Module" }));
-const serverManifest = { "entry": { "module": "/assets/entry.client-WabgBupn.js", "imports": ["/assets/chunk-QMGIS6GS-hoMvXFpG.js"], "css": [] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": true, "module": "/assets/root-DgYYK5ca.js", "imports": ["/assets/chunk-QMGIS6GS-hoMvXFpG.js"], "css": ["/assets/root-ORyfRZpj.css"], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 }, "routes/home": { "id": "routes/home", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": false, "module": "/assets/home-BtpfwF51.js", "imports": ["/assets/chunk-QMGIS6GS-hoMvXFpG.js"], "css": [], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 } }, "url": "/assets/manifest-57f30929.js", "version": "57f30929", "sri": void 0 };
+const serverManifest = { "entry": { "module": "/assets/entry.client-WabgBupn.js", "imports": ["/assets/chunk-QMGIS6GS-hoMvXFpG.js"], "css": [] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": true, "module": "/assets/root-DgYYK5ca.js", "imports": ["/assets/chunk-QMGIS6GS-hoMvXFpG.js"], "css": ["/assets/root-ORyfRZpj.css"], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 }, "routes/home": { "id": "routes/home", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": false, "module": "/assets/home-DiJN05cA.js", "imports": ["/assets/chunk-QMGIS6GS-hoMvXFpG.js"], "css": [], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 } }, "url": "/assets/manifest-34a88e85.js", "version": "34a88e85", "sri": void 0 };
 const assetsBuildDirectory = "build\\client";
 const basename = "/";
 const future = { "unstable_middleware": false, "unstable_optimizeDeps": false, "unstable_splitRouteModules": false, "unstable_subResourceIntegrity": false, "unstable_viteEnvironmentApi": false };

@@ -27,4 +27,19 @@ historySchema.set('toJSON', {
     }
 })
 
+const peopleSchema = new mongoose.Schema({
+    name: String, 
+    transactionMade: Number,
+    balance: Number
+})
+
+peopleSchema.set('toJSON', {
+    transform: (document, returnedObject) => {
+        returnedObject.id = returnedObject._id.toString()
+        delete returnedObject._id
+        delete returnedObject.__v
+    }
+})
+
 module.exports = mongoose.model('History', historySchema)
+module.exports = mongoose.model('People', peopleSchema)

@@ -3,6 +3,7 @@ import History from "./history";
 import InputMoney from "./inputMoney";
 import Transaction from "./transaction";
 import historyService from "../services/history";
+import personService from "../services/person";
 
 function Money() {
     const [money, setMoney] = useState(0)
@@ -11,6 +12,7 @@ function Money() {
     const [showTransaction, setShowTransaction] = useState(false)
     const [history, setHistory] = useState([])
     const [isBorrow, setIsBorrow] = useState(false)
+    const [person, setPerson] = useState([])
     
     useEffect(() => {
         historyService.getHistory().then(res => {
@@ -21,7 +23,16 @@ function Money() {
             console.error(err);
             alert('Failed to fetch history.');
         });
-        console.log(isBorrow)
+
+        personService
+            .getPerson()
+            .then(res => {
+                setPerson(res.data)
+            })
+            .catch(err => {
+                console.log(err.message)
+                alert('Failed to fetch person')
+            })
     }, [])
 
     useEffect(() => {
@@ -53,6 +64,7 @@ function Money() {
         } else if (num === 0) {
             window.alert('Number is 0');
         } else {
+            
             historyService.postTransaction(name, num)
                 .then((res: any) => {
                     setHistory(prevHistory => prevHistory.concat(res.data));
