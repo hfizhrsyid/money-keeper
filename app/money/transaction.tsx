@@ -1,3 +1,4 @@
+import React from "react";
 import InputMoney from "./inputMoney"
 
 type InputMoneyProps = {
@@ -11,13 +12,13 @@ type InputMoneyProps = {
   isBorrow: boolean;
 };
 
-const Transaction = ({handleClick, nameValue, inputValue, handleChange, handleNameChange, setNameValue, setIsBorrow, isBorrow}: InputMoneyProps) => {
+const Transaction = React.memo(({handleClick, nameValue, inputValue, handleChange, handleNameChange, setNameValue, setIsBorrow, isBorrow}: InputMoneyProps) => {
   
     return (
         <div className="text-center flex-row">
           <InputMoney handleClick={handleClick} nameValue={nameValue} inputValue={inputValue} handleChange={handleChange} handleNameChange={handleNameChange} handleNameSelect={setNameValue} setIsBorrow={setIsBorrow} isBorrow={isBorrow} />
         </div>
     )
-}
+})
 
 export default Transaction

@@ -6,7 +6,7 @@ interface SegmentedToggleProps {
   onChange?: (value: string) => void;
 }
 
-const SegmentedToggle = ({
+const SegmentedToggle = React.memo(({
   optionA,
   optionB,
   onChange,
@@ -64,9 +64,10 @@ const SegmentedToggle = ({
       </div>
     </div>
   );
-}
+});
+SegmentedToggle.displayName = 'SegmentedToggle';
 
-const TypeOfTransaction = () => {
+const TypeOfTransaction = React.memo(() => {
   return (
     <div>
       <p>Tipe transaksi</p>
@@ -87,7 +88,8 @@ const TypeOfTransaction = () => {
       </div>
     </div>
   )
-}
+});
+TypeOfTransaction.displayName = 'TypeOfTransaction';
 
 
 type InputMoneyProps = {
@@ -101,7 +103,7 @@ type InputMoneyProps = {
   isBorrow: boolean;
 };
 
-const InputMoney = ({ handleClick, nameValue, inputValue, handleChange, handleNameChange, handleNameSelect, setIsBorrow, isBorrow }: InputMoneyProps) => {
+const InputMoney = React.memo(({ handleClick, nameValue, inputValue, handleChange, handleNameChange, handleNameSelect, setIsBorrow, isBorrow }: InputMoneyProps) => {
     const formatted = new Intl.NumberFormat("id-ID").format(Number(inputValue || 0));
     return (
         <form onSubmit={handleClick} className="flex-row justify-center align-items">
@@ -139,6 +141,7 @@ const InputMoney = ({ handleClick, nameValue, inputValue, handleChange, handleNa
             <button type="submit" className="bg-green-200 p-2 rounded-md btn text-green-800 border-green-800 text-xl">Press</button>
         </form>
     )
-}
+});
+InputMoney.displayName = 'InputMoney';
 
 export default InputMoney

@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import History from "./history";
 import InputMoney from "./inputMoney";
 import Transaction from "./transaction";
@@ -6,7 +6,6 @@ import historyService from "../services/history";
 import personService from "../services/person";
 
 function Money() {
-    const [money, setMoney] = useState(0)
     const [nameValue, setNameValue] = useState("")
     const [inputValue, setInputValue] = useState("")
     const [showTransaction, setShowTransaction] = useState(false)
@@ -35,22 +34,21 @@ function Money() {
             })
     }, [])
 
-    useEffect(() => {
-        const totalMoney = history.reduce((accumulator: number, item: any) => accumulator + Number(item.money), 0)
-        setMoney(totalMoney);
+    const money = useMemo(() => {
+        return history.reduce((accumulator: number, item: any) => accumulator + Number(item.money), 0)
     }, [history])
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         // Remove all non-digits
         const rawValue = event.target.value.replace(/\D/g, "");
         setInputValue(rawValue);
-    }
+    }, [])
 
-    const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleNameChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         setNameValue(event.target.value)
-    }
+    }, [])
 
-    const handleClick = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleClick = useCallback((event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         let num = Number(inputValue)
         
@@ -75,7 +73,7 @@ function Money() {
                 })
         }
         setInputValue("");
-    }
+    }, [inputValue, isBorrow, nameValue])
     
     return (
         <div className="justify-center text-center flex-row mt-1">
