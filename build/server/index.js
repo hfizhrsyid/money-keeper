@@ -4,7 +4,7 @@ import { createReadableStreamFromReadable } from "@react-router/node";
 import { ServerRouter, UNSAFE_withComponentProps, Outlet, UNSAFE_withErrorBoundaryProps, isRouteErrorResponse, Meta, Links, ScrollRestoration, Scripts } from "react-router";
 import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useMemo, useCallback } from "react";
 import axios from "axios";
 const streamTimeout = 5e3;
 function handleRequest(request, responseStatusCode, responseHeaders, routerContext, loadContext) {
@@ -115,7 +115,7 @@ const TransactionList = ({ id, name, money, date }) => {
     ] }),
     /* @__PURE__ */ jsx("div", { className: "justify-center items-center flex", children: /* @__PURE__ */ jsxs("h2", { className: "text-2xl", children: [
       "Rp",
-      money.toLocaleString("id-ID")
+      money ? money.toLocaleString("id-ID") : "0"
     ] }) })
   ] });
 };
@@ -125,7 +125,7 @@ const History = ({ newHistory }) => {
     /* @__PURE__ */ jsx("div", { className: "h-128 overflow-y-auto", children: newHistory.map((his) => /* @__PURE__ */ jsx(TransactionList, { id: his.id, name: his.name, money: his.money, date: his.date }, his.id)) })
   ] });
 };
-const SegmentedToggle = ({
+const SegmentedToggle = React.memo(({
   optionA,
   optionB,
   onChange
@@ -176,8 +176,34 @@ const SegmentedToggle = ({
       )
     ] })
   ] });
-};
-const InputMoney = ({ handleClick, nameValue, inputValue, handleChange, handleNameChange, handleNameSelect, setIsBorrow, isBorrow }) => {
+});
+SegmentedToggle.displayName = "SegmentedToggle";
+const TypeOfTransaction = React.memo(() => {
+  return /* @__PURE__ */ jsxs("div", { children: [
+    /* @__PURE__ */ jsx("p", { children: "Tipe transaksi" }),
+    /* @__PURE__ */ jsxs("div", { className: "relative inline-flex border rounded-full bg-gray-200 p-1", children: [
+      /* @__PURE__ */ jsx("span", { className: "absolute top-1 bottom-1 rounded-full bg-white shadow transition-all duration-300" }),
+      /* @__PURE__ */ jsx(
+        "button",
+        {
+          type: "button",
+          className: `relative z-10 px-4 py-1 rounded-full transition-colors duration-300`,
+          children: "Borrow"
+        }
+      ),
+      /* @__PURE__ */ jsx(
+        "button",
+        {
+          type: "button",
+          className: `relative z-10 px-4 py-1 rounded-full transition-colors duration-300`,
+          children: "Pay"
+        }
+      )
+    ] })
+  ] });
+});
+TypeOfTransaction.displayName = "TypeOfTransaction";
+const InputMoney = React.memo(({ handleClick, nameValue, inputValue, handleChange, handleNameChange, handleNameSelect, setIsBorrow, isBorrow }) => {
   const formatted = new Intl.NumberFormat("id-ID").format(Number(inputValue || 0));
   return /* @__PURE__ */ jsxs("form", { onSubmit: handleClick, className: "flex-row justify-center align-items", children: [
     /* @__PURE__ */ jsx(
@@ -211,10 +237,11 @@ const InputMoney = ({ handleClick, nameValue, inputValue, handleChange, handleNa
     ] }),
     /* @__PURE__ */ jsx("button", { type: "submit", className: "bg-green-200 p-2 rounded-md btn text-green-800 border-green-800 text-xl", children: "Press" })
   ] });
-};
-const Transaction = ({ handleClick, nameValue, inputValue, handleChange, handleNameChange, setNameValue, setIsBorrow, isBorrow }) => {
+});
+InputMoney.displayName = "InputMoney";
+const Transaction = React.memo(({ handleClick, nameValue, inputValue, handleChange, handleNameChange, setNameValue, setIsBorrow, isBorrow }) => {
   return /* @__PURE__ */ jsx("div", { className: "text-center flex-row", children: /* @__PURE__ */ jsx(InputMoney, { handleClick, nameValue, inputValue, handleChange, handleNameChange, handleNameSelect: setNameValue, setIsBorrow, isBorrow }) });
-};
+});
 const baseUrl$1 = `${"http://localhost:4000"}/history`;
 const getHistory = () => {
   return axios.get(`${baseUrl$1}`);
@@ -232,7 +259,6 @@ const postPerson = (personObject) => {
 };
 const personService = { getPerson, postPerson };
 function Money() {
-  const [money, setMoney] = useState(0);
   const [nameValue, setNameValue] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [showTransaction, setShowTransaction] = useState(false);
@@ -254,18 +280,17 @@ function Money() {
       alert("Failed to fetch person");
     });
   }, []);
-  useEffect(() => {
-    const totalMoney = history.reduce((accumulator, item) => accumulator + Number(item.money), 0);
-    setMoney(totalMoney);
+  const money = useMemo(() => {
+    return history.reduce((accumulator, item) => accumulator + Number(item.money), 0);
   }, [history]);
-  const handleChange = (event) => {
+  const handleChange = useCallback((event) => {
     const rawValue = event.target.value.replace(/\D/g, "");
     setInputValue(rawValue);
-  };
-  const handleNameChange = (event) => {
+  }, []);
+  const handleNameChange = useCallback((event) => {
     setNameValue(event.target.value);
-  };
-  const handleClick = (event) => {
+  }, []);
+  const handleClick = useCallback((event) => {
     event.preventDefault();
     let num = Number(inputValue);
     if (isBorrow) {
@@ -285,13 +310,13 @@ function Money() {
       });
     }
     setInputValue("");
-  };
+  }, [inputValue, isBorrow, nameValue]);
   return /* @__PURE__ */ jsxs("div", { className: "justify-center text-center flex-row mt-1", children: [
     /* @__PURE__ */ jsxs("div", { className: "text-center text-6xl gap-64", children: [
       /* @__PURE__ */ jsx("h3", { className: "text-4xl", children: "Money owed by" }),
       /* @__PURE__ */ jsxs("h1", { children: [
         "Rp",
-        money.toLocaleString("id-ID")
+        money ? money.toLocaleString("id-ID") : "0"
       ] })
     ] }),
     /* @__PURE__ */ jsx("div", { className: "flex justify-center", children: /* @__PURE__ */ jsx("button", { className: "bg-green-200 p-2 rounded-md btn text-green-800 border-green-800", onClick: () => setShowTransaction(true), children: "Add a transaction" }) }),
@@ -339,7 +364,7 @@ const route1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProper
   default: home,
   meta
 }, Symbol.toStringTag, { value: "Module" }));
-const serverManifest = { "entry": { "module": "/assets/entry.client-WabgBupn.js", "imports": ["/assets/chunk-QMGIS6GS-hoMvXFpG.js"], "css": [] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": true, "module": "/assets/root-DgYYK5ca.js", "imports": ["/assets/chunk-QMGIS6GS-hoMvXFpG.js"], "css": ["/assets/root-ORyfRZpj.css"], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 }, "routes/home": { "id": "routes/home", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": false, "module": "/assets/home-DiJN05cA.js", "imports": ["/assets/chunk-QMGIS6GS-hoMvXFpG.js"], "css": [], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 } }, "url": "/assets/manifest-34a88e85.js", "version": "34a88e85", "sri": void 0 };
+const serverManifest = { "entry": { "module": "/assets/entry.client-B6b-lELA.js", "imports": ["/assets/chunk-QMGIS6GS-B6qEP1Oj.js"], "css": [] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": true, "module": "/assets/root-BADi3UIb.js", "imports": ["/assets/chunk-QMGIS6GS-B6qEP1Oj.js"], "css": ["/assets/root-ORyfRZpj.css"], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 }, "routes/home": { "id": "routes/home", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": false, "module": "/assets/home-BmurnrP3.js", "imports": ["/assets/chunk-QMGIS6GS-B6qEP1Oj.js"], "css": [], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 } }, "url": "/assets/manifest-da679e82.js", "version": "da679e82", "sri": void 0 };
 const assetsBuildDirectory = "build\\client";
 const basename = "/";
 const future = { "unstable_middleware": false, "unstable_optimizeDeps": false, "unstable_splitRouteModules": false, "unstable_subResourceIntegrity": false, "unstable_viteEnvironmentApi": false };

@@ -18,7 +18,7 @@ const TransactionList = ({ id, name, money, date }: Transaction) => {
                 <p>{date}</p>
             </div>
             <div className="justify-center items-center flex">
-                <h2 className="text-2xl">Rp{money.toLocaleString("id-ID")}</h2>
+                <h2 className="text-2xl">Rp{money ? money.toLocaleString("id-ID") : '0'}</h2>
             </div>
         </div>
     )

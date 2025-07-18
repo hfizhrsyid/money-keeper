@@ -3,7 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
 const History = require('./history.cjs');
-const People = require('./history.cjs');
+const People = require('./person.cjs');
 
 const app = express();
 

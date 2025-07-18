@@ -13,13 +13,13 @@ mongoose.connect(uri)
         console.log('Error connecting to MongoDB', error.message)
     })
 
-const historySchema = new mongoose.Schema({
-    name: String,
-    money: Number,
-    date: String,
+const peopleSchema = new mongoose.Schema({
+    name: String, 
+    transactionMade: Number,
+    balance: Number
 })
 
-historySchema.set('toJSON', {
+peopleSchema.set('toJSON', {
     transform: (document, returnedObject) => {
         returnedObject.id = returnedObject._id.toString()
         delete returnedObject._id
@@ -27,4 +27,4 @@ historySchema.set('toJSON', {
     }
 })
 
-module.exports = mongoose.model('History', historySchema)
+module.exports = mongoose.model('People', peopleSchema)

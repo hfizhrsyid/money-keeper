@@ -79,7 +79,7 @@ function Money() {
         <div className="justify-center text-center flex-row mt-1">
             <div className="text-center text-6xl gap-64">
                 <h3 className="text-4xl">Money owed by</h3>
-                <h1>Rp{money.toLocaleString("id-ID")}</h1>
+                <h1>Rp{money ? money.toLocaleString("id-ID") : '0'}</h1>
             </div>
 
             <div className="flex justify-center">
