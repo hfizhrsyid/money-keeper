@@ -9,7 +9,7 @@ function Money() {
     const [nameValue, setNameValue] = useState("")
     const [inputValue, setInputValue] = useState("")
     const [showTransaction, setShowTransaction] = useState(false)
-    const [history, setHistory] = useState([])
+    const [history, setHistory] = useState<any[]>([])
     const [isBorrow, setIsBorrow] = useState(false)
     const [person, setPerson] = useState([])
     
@@ -65,7 +65,7 @@ function Money() {
             
             historyService.postTransaction(name, num)
                 .then((res: any) => {
-                    setHistory(prevHistory => prevHistory.concat(res.data));
+                    setHistory(prevHistory => [res.data, ...prevHistory])
                 })
                 .catch((error: any) => {
                     console.log(error.message)
