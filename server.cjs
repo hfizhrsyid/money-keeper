@@ -34,8 +34,9 @@ app.patch('/people/:id', (req, res) => {
         return res.status(404).end()
       }
 
-      if (req.body.transactionMade !== undefined) {
-        result.transactionMade = req.body.transactionMade
+      if (req.body.money !== undefined) {
+        result.transactionMade += 1
+        result.balance += req.body.money
       }
 
       return result.save().then(updatedPerson => res.json(updatedPerson))
@@ -63,9 +64,9 @@ app.post('/people', (req, res) => {
 })
 
 // History routes
-app.get('/history', (req, res) => {
-  History.find({})
-    .sort({ date: -1})
+app.get('/history', (_, res) => {
+  History
+    .find({})
     .then(result => res.json(result))
     .catch(error => res.status(500).json({ error: error.message }))
 });

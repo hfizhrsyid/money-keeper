@@ -9,8 +9,8 @@ const postPerson = (personObject: Record<string, any>) => {
     return axios.post(`${baseUrl}`, personObject)
 }
 
-const putTransaction = (id: string, personObject: Record<string, any>) => {
-    return axios.put(`${baseUrl}/id`, personObject)
+const patchTransaction = (id: string, personObject: Record<string, any>) => {
+    return axios.patch(`${baseUrl}/${id}`, personObject)
 } 
 
-export default { getPerson, postPerson }
+export default { getPerson, postPerson, patchTransaction }

@@ -11,12 +11,13 @@ function Money() {
     const [showTransaction, setShowTransaction] = useState(false)
     const [history, setHistory] = useState<any[]>([])
     const [isBorrow, setIsBorrow] = useState(false)
-    const [person, setPerson] = useState([])
+    type Person = { id: string; name: string; transactionMade: number, balance: number };
+    const [person, setPerson] = useState<Person[]>([])
     
     useEffect(() => {
         historyService.getHistory().then(res => {
             console.log(res.data)
-            setHistory(res.data)
+            setHistory(res.data.sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime()))
         })
         .catch(err => {
             console.error(err);
@@ -32,6 +33,7 @@ function Money() {
                 console.log(err.message)
                 alert('Failed to fetch person')
             })
+        console.log(person)
     }, [])
 
     const money = useMemo(() => {
@@ -66,6 +68,11 @@ function Money() {
             historyService.postTransaction(name, num)
                 .then((res: any) => {
                     setHistory(prevHistory => [res.data, ...prevHistory])
+                    const foundPerson = person.find((p: any) => p.name === name)
+                    console.log(foundPerson)
+                    if (foundPerson && foundPerson.id) {
+                        personService.patchTransaction(foundPerson.id, res.data)
+                    }
                 })
                 .catch((error: any) => {
                     console.log(error.message)

@@ -4,7 +4,7 @@ import { createReadableStreamFromReadable } from "@react-router/node";
 import { ServerRouter, UNSAFE_withComponentProps, Outlet, UNSAFE_withErrorBoundaryProps, isRouteErrorResponse, Meta, Links, ScrollRestoration, Scripts } from "react-router";
 import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
-import React, { useState, useRef, useEffect, useMemo, useCallback } from "react";
+import React, { useEffect, useState, useRef, useMemo, useCallback } from "react";
 import axios from "axios";
 const streamTimeout = 5e3;
 function handleRequest(request, responseStatusCode, responseHeaders, routerContext, loadContext) {
@@ -61,10 +61,18 @@ const links = () => [{
 function Layout({
   children
 }) {
+  useEffect(() => {
+    const favicon = document.querySelector('link[rel="icon"]');
+    if (favicon) {
+      favicon.href = window.matchMedia("(prefers-color-scheme: dark)").matches ? "/Mdark.svg" : "/M.svg";
+    }
+  }, []);
   return /* @__PURE__ */ jsxs("html", {
     lang: "en",
     children: [/* @__PURE__ */ jsxs("head", {
-      children: [/* @__PURE__ */ jsx("meta", {
+      children: [/* @__PURE__ */ jsx("link", {
+        rel: "icon"
+      }), /* @__PURE__ */ jsx("meta", {
         charSet: "utf-8"
       }), /* @__PURE__ */ jsx("meta", {
         name: "viewport",
@@ -258,7 +266,10 @@ const getPerson = () => {
 const postPerson = (personObject) => {
   return axios.post(`${baseUrl}`, personObject);
 };
-const personService = { getPerson, postPerson };
+const patchTransaction = (id, personObject) => {
+  return axios.patch(`${baseUrl}/${id}`, personObject);
+};
+const personService = { getPerson, postPerson, patchTransaction };
 function Money() {
   const [nameValue, setNameValue] = useState("");
   const [inputValue, setInputValue] = useState("");
@@ -269,7 +280,7 @@ function Money() {
   useEffect(() => {
     historyService.getHistory().then((res) => {
       console.log(res.data);
-      setHistory(res.data);
+      setHistory(res.data.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()));
     }).catch((err) => {
       console.error(err);
       alert("Failed to fetch history.");
@@ -280,6 +291,7 @@ function Money() {
       console.log(err.message);
       alert("Failed to fetch person");
     });
+    console.log(person);
   }, []);
   const money = useMemo(() => {
     return history.reduce((accumulator, item) => accumulator + Number(item.money), 0);
@@ -305,6 +317,11 @@ function Money() {
     } else {
       historyService.postTransaction(name, num).then((res) => {
         setHistory((prevHistory) => [res.data, ...prevHistory]);
+        const foundPerson = person.find((p) => p.name === name);
+        console.log(foundPerson);
+        if (foundPerson && foundPerson.id) {
+          personService.patchTransaction(foundPerson.id, res.data);
+        }
       }).catch((error) => {
         console.log(error.message);
         alert("Failed to post Transaction");
@@ -365,7 +382,7 @@ const route1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProper
   default: home,
   meta
 }, Symbol.toStringTag, { value: "Module" }));
-const serverManifest = { "entry": { "module": "/assets/entry.client-B6b-lELA.js", "imports": ["/assets/chunk-QMGIS6GS-B6qEP1Oj.js"], "css": [] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": true, "module": "/assets/root-BADi3UIb.js", "imports": ["/assets/chunk-QMGIS6GS-B6qEP1Oj.js"], "css": ["/assets/root-ORyfRZpj.css"], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 }, "routes/home": { "id": "routes/home", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": false, "module": "/assets/home-8uZVLP7d.js", "imports": ["/assets/chunk-QMGIS6GS-B6qEP1Oj.js"], "css": [], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 } }, "url": "/assets/manifest-a6f61ae9.js", "version": "a6f61ae9", "sri": void 0 };
+const serverManifest = { "entry": { "module": "/assets/entry.client-B6b-lELA.js", "imports": ["/assets/chunk-QMGIS6GS-B6qEP1Oj.js"], "css": [] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": true, "module": "/assets/root-Cf6pS91m.js", "imports": ["/assets/chunk-QMGIS6GS-B6qEP1Oj.js"], "css": ["/assets/root-ORyfRZpj.css"], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 }, "routes/home": { "id": "routes/home", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": false, "module": "/assets/home-CYf5c-2w.js", "imports": ["/assets/chunk-QMGIS6GS-B6qEP1Oj.js"], "css": [], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 } }, "url": "/assets/manifest-ae09ea1a.js", "version": "ae09ea1a", "sri": void 0 };
 const assetsBuildDirectory = "build\\client";
 const basename = "/";
 const future = { "unstable_middleware": false, "unstable_optimizeDeps": false, "unstable_splitRouteModules": false, "unstable_subResourceIntegrity": false, "unstable_viteEnvironmentApi": false };
