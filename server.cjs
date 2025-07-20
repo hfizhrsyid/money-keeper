@@ -5,7 +5,9 @@ const path = require('path');
 const History = require('./history.cjs');
 const People = require('./person.cjs');
 
+// const cors = require('cors')
 const app = express();
+// app.use(cors())
 
 // Middleware
 app.use(express.json());

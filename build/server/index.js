@@ -229,6 +229,7 @@ const InputMoney = React.memo(({ handleClick, nameValue, inputValue, handleChang
         {
           value: formatted,
           type: "text",
+          inputMode: "decimal",
           onChange: handleChange,
           className: "pl-10 pr-4 py-2 w-full text-2xl rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500",
           placeholder: "0"
@@ -364,7 +365,7 @@ const route1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProper
   default: home,
   meta
 }, Symbol.toStringTag, { value: "Module" }));
-const serverManifest = { "entry": { "module": "/assets/entry.client-B6b-lELA.js", "imports": ["/assets/chunk-QMGIS6GS-B6qEP1Oj.js"], "css": [] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": true, "module": "/assets/root-BADi3UIb.js", "imports": ["/assets/chunk-QMGIS6GS-B6qEP1Oj.js"], "css": ["/assets/root-ORyfRZpj.css"], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 }, "routes/home": { "id": "routes/home", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": false, "module": "/assets/home-7uu_l1TC.js", "imports": ["/assets/chunk-QMGIS6GS-B6qEP1Oj.js"], "css": [], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 } }, "url": "/assets/manifest-f7199661.js", "version": "f7199661", "sri": void 0 };
+const serverManifest = { "entry": { "module": "/assets/entry.client-B6b-lELA.js", "imports": ["/assets/chunk-QMGIS6GS-B6qEP1Oj.js"], "css": [] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": true, "module": "/assets/root-BADi3UIb.js", "imports": ["/assets/chunk-QMGIS6GS-B6qEP1Oj.js"], "css": ["/assets/root-ORyfRZpj.css"], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 }, "routes/home": { "id": "routes/home", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": false, "module": "/assets/home-8uZVLP7d.js", "imports": ["/assets/chunk-QMGIS6GS-B6qEP1Oj.js"], "css": [], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 } }, "url": "/assets/manifest-a6f61ae9.js", "version": "a6f61ae9", "sri": void 0 };
 const assetsBuildDirectory = "build\\client";
 const basename = "/";
 const future = { "unstable_middleware": false, "unstable_optimizeDeps": false, "unstable_splitRouteModules": false, "unstable_subResourceIntegrity": false, "unstable_viteEnvironmentApi": false };

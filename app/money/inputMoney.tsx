@@ -132,6 +132,7 @@ const InputMoney = React.memo(({ handleClick, nameValue, inputValue, handleChang
               <input
                   value={formatted}
                   type="text"
+                  inputMode="decimal"
                   onChange={handleChange}
                   className="pl-10 pr-4 py-2 w-full text-2xl rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="0"
