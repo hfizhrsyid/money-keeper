@@ -1,6 +1,6 @@
 import NavBar from "~/components/navBar";
 import type { Route } from "./+types/home";
-import Money from "../money/money";
+import Main from "../money/main";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <div>
       <NavBar />
-      <Money />
+      <Main />
     </div>
   )
 }

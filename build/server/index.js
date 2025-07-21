@@ -329,8 +329,8 @@ function Money() {
     }
     setInputValue("");
   }, [inputValue, isBorrow, nameValue]);
-  return /* @__PURE__ */ jsxs("div", { className: "justify-center text-center flex-row mt-1", children: [
-    /* @__PURE__ */ jsxs("div", { className: "text-center text-6xl gap-64", children: [
+  return /* @__PURE__ */ jsxs("div", { className: "justify-center text-center flex-row mt-1 ", children: [
+    /* @__PURE__ */ jsxs("div", { className: "text-center text-6xl gap-64 cursor-not-allowed select-none", children: [
       /* @__PURE__ */ jsx("h3", { className: "text-4xl", children: "Money owed by" }),
       /* @__PURE__ */ jsxs("h1", { children: [
         "Rp",
@@ -382,7 +382,7 @@ const route1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProper
   default: home,
   meta
 }, Symbol.toStringTag, { value: "Module" }));
-const serverManifest = { "entry": { "module": "/assets/entry.client-B6b-lELA.js", "imports": ["/assets/chunk-QMGIS6GS-B6qEP1Oj.js"], "css": [] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": true, "module": "/assets/root-Cf6pS91m.js", "imports": ["/assets/chunk-QMGIS6GS-B6qEP1Oj.js"], "css": ["/assets/root-ORyfRZpj.css"], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 }, "routes/home": { "id": "routes/home", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": false, "module": "/assets/home-CYf5c-2w.js", "imports": ["/assets/chunk-QMGIS6GS-B6qEP1Oj.js"], "css": [], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 } }, "url": "/assets/manifest-ae09ea1a.js", "version": "ae09ea1a", "sri": void 0 };
+const serverManifest = { "entry": { "module": "/assets/entry.client-B6b-lELA.js", "imports": ["/assets/chunk-QMGIS6GS-B6qEP1Oj.js"], "css": [] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": true, "module": "/assets/root-CihR2A8N.js", "imports": ["/assets/chunk-QMGIS6GS-B6qEP1Oj.js"], "css": ["/assets/root-Cq9ulTK0.css"], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 }, "routes/home": { "id": "routes/home", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": false, "module": "/assets/home-DVnhBFFd.js", "imports": ["/assets/chunk-QMGIS6GS-B6qEP1Oj.js"], "css": [], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 } }, "url": "/assets/manifest-3712734d.js", "version": "3712734d", "sri": void 0 };
 const assetsBuildDirectory = "build\\client";
 const basename = "/";
 const future = { "unstable_middleware": false, "unstable_optimizeDeps": false, "unstable_splitRouteModules": false, "unstable_subResourceIntegrity": false, "unstable_viteEnvironmentApi": false };
